@@ -217,9 +217,10 @@ contenidoDePublicacion (a, b, c) = b
 -- Valida si dada una lista de usuarios, cada uno se relaciona con el siguiente en una red.
 cadenaDeAmigos :: [Usuario] -> RedSocial -> Bool
 cadenaDeAmigos (x:[]) red = True
-cadenaDeAmigos us red = (relacionadosDirecto u1 u2 red) && (cadenaDeAmigos (tail(us)) red)
+cadenaDeAmigos us red = (relacionadosDirecto u1 u2 red) && (cadenaDeAmigos ust red)
                         where u1 = head(us)
                               u2 = head(tail(us))
+                              ust = tail(us)
 
 ----------------------------------------------------------------------------------------------------
 
