@@ -96,7 +96,7 @@ pertenece e l = e == hl || pertenece e tl
 
 ----------------------------------------------------------------------------------------------------
 
--- Valida si ambas listas tienen los mismo elementos, sin importar las repeticiones.
+-- Valida si ambas listas tienen la misma longitud y los mismo elementos, sin importar las repeticiones.
 mismosElementos :: (Eq t) => [t] -> [t] -> Bool
 mismosElementos [] [] = True
 mismosElementos l1 l2 = (longitud l1 == longitud l2) && (todoElemPertenece l1 l2) && (todoElemPertenece l2 l1)
