@@ -232,8 +232,9 @@ relacionadosDirecto u1 u2 red = pertenece (u1, u2) (relaciones(red)) || pertenec
 -- Valida si todos los usuarios en una lista perteneces a una red.
 sonDeLaRed :: RedSocial -> [Usuario] -> Bool
 sonDeLaRed red [] = True
-sonDeLaRed red us = pertenece u usred && sonDeLaRed red (tail(us))
+sonDeLaRed red us = (pertenece u usred) && (sonDeLaRed red ust)
                     where u = head(us)
+                          ust = tail(us)
                           usred = usuarios(red)
 
 ----------------------------------------------------------------------------------------------------
