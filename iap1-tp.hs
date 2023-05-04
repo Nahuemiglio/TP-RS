@@ -196,6 +196,11 @@ usuariosDePublicacionSonUsuariosDeRed us pubs = pertenece u us && usuariosDePubl
 
 ----------------------------------------------------------------------------------------------------
 
+usuariosLikeValidos :: [Usuario] -> [Usuario] -> Bool
+usuariosLikeValidos us usl = todoElemPertenece usl us
+
+----------------------------------------------------------------------------------------------------
+
 -- Valida que no haya publicaciones repetidas
 noHayPublicacionesRepetidas :: [Publicacion] -> Bool
 noHayPublicacionesRepetidas [] = True
