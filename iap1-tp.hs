@@ -134,12 +134,7 @@ usuarioValido u = idDeUsuario(u) > 0 && longitud(nombreDeUsuario(u)) > 0
 -- Valida que no haya ids repetidos en una lista de usuarios.
 noHayIdsRepetidos :: [Usuario] -> Bool
 noHayIdsRepetidos [] = True
-noHayIdsRepetidos us = todosDistintos(idsDeUsuarios(us))
-
--- Valida que todos los elementos de una lista sean distintos.
-todosDistintos :: (Eq t) => [t] -> Bool
-todosDistintos [] = True
-todosDistintos (x:xs) = not (pertenece x xs) && (todosDistintos xs)
+noHayIdsRepetidos us = sinRepetidos(idsDeUsuarios(us))
 
 -- Devuelve una lista con los ids de una lista de usuarios.
 idsDeUsuarios :: [Usuario] -> [Integer]
@@ -176,7 +171,7 @@ relacionesAsimetricas rels = not (pertenece (u2, u1) rels) && relacionesAsimetri
 -- Valida que no haya relaciones duplicadas
 noHayRelacionesRepetidas :: [Relacion] -> Bool
 noHayRelacionesRepetidas [] = True
-noHayRelacionesRepetidas rels = todosDistintos(idsDeUsuariosRelacionados(rels))
+noHayRelacionesRepetidas rels = sinRepetidos(idsDeUsuariosRelacionados(rels))
 
 -- Dada una lista de relaciones, devuelve una lista de relaciones reemplazando cada usuario por su id.
 idsDeUsuariosRelacionados :: [Relacion] -> [(Integer, Integer)]
@@ -204,7 +199,7 @@ usuariosDePublicacionSonUsuariosDeRed us pubs = pertenece u us && usuariosDePubl
 -- Valida que no haya publicaciones repetidas
 noHayPublicacionesRepetidas :: [Publicacion] -> Bool
 noHayPublicacionesRepetidas [] = True
-noHayPublicacionesRepetidas pubs = todosDistintos(idsDeUsuariosYPublicaciones(pubs))
+noHayPublicacionesRepetidas pubs = sinRepetidos(idsDeUsuariosYPublicaciones(pubs))
 
 -- Armar una lista con los ids de ususarios y los textos de las publicaciones
 idsDeUsuariosYPublicaciones :: [Publicacion] -> [(Integer, String)]
@@ -257,8 +252,12 @@ terminaCon e l = terminaCon e (tail(l))
 
 ----------------------------------------------------------------------------------------------------
 
+-- Valida que todos los elementos de una lista sean distintos.
 sinRepetidos :: (Eq t) => [t] -> Bool
-sinRepetidos l = todosDistintos l
+sinRepetidos [] = True
+sinRepetidos l = not (pertenece hl tl) && (sinRepetidos tl)
+                 where hl = head(l)
+                       tl = tail(l)
 
 ----------------------------------------------------------------------------------------------------
 
