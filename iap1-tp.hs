@@ -191,12 +191,12 @@ publicacionesValidas us pubs = usuariosDePublicacionSonUsuariosDeRed us pubs && 
 -- Valida que las publicaciones están hechas por ususarios de una lista de usuarios
 usuariosDePublicacionSonUsuariosDeRed :: [Usuario] -> [Publicacion] -> Bool
 usuariosDePublicacionSonUsuariosDeRed us [] = True
-usuariosDePublicacionSonUsuariosDeRed us pubs = pertenece u us && usuariosDePublicacionSonUsuariosDeRed us (tail(pubs))
-                                                where u = usuarioDePublicacion(head(pubs))
+usuariosDePublicacionSonUsuariosDeRed us pubs = pertenece up us && usuariosDePublicacionSonUsuariosDeRed us (tail(pubs))
+                                                where up = usuarioDePublicacion(head(pubs))
 
 ----------------------------------------------------------------------------------------------------
 
--- Valida que todos los ususarios que dieron like a cada publicación en una lista de publicaciones, se encuentran en una lista de usuarios dada.
+-- Valida que todos los likes de cada publicación en una lista de publicaciones, son de usuarios que se encuentran en una lista de usuarios dada.
 usuariosDeLikeDePublicacionesSonUsuariosDeRed :: [Usuario] -> [Publicacion] -> Bool
 usuariosDeLikeDePublicacionesSonUsuariosDeRed us [] = True
 usuariosDeLikeDePublicacionesSonUsuariosDeRed us pubs = usuariosLikeValidos us usl && usuariosDeLikeDePublicacionesSonUsuariosDeRed us (tail(pubs))
