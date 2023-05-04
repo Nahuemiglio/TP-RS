@@ -225,7 +225,7 @@ cadenaDeAmigos us red = (relacionadosDirecto u1 u2 red) && (cadenaDeAmigos (tail
 
 -- Valida si dos usuarios se relacionan en una red social
 relacionadosDirecto :: Usuario -> Usuario -> RedSocial -> Bool
-relacionadosDirecto u1 u2 red = pertenece (u1, u2) (relaciones(red)) || pertenece (u2, u1) (relaciones(red))
+relacionadosDirecto u1 u2 red = (pertenece (u1, u2) (relaciones(red))) || (pertenece (u2, u1) (relaciones(red)))
 
 ----------------------------------------------------------------------------------------------------
 
