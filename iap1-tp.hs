@@ -13,28 +13,35 @@ type RedSocial = ([Usuario], [Relacion], [Publicacion])
 
 --------------------------------------------------- Funciones basicas
 
+-- Devuelve el conjunto de usuarios.
 usuarios :: RedSocial -> [Usuario]
 usuarios (us, _, _) = us
 
+-- Devuelve el conjunto de relaciones.
 relaciones :: RedSocial -> [Relacion]
 relaciones (_, rs, _) = rs
 
+-- Devuelve el conjunto de publicaciones.
 publicaciones :: RedSocial -> [Publicacion]
 publicaciones (_, _, ps) = ps
 
+-- Devuelve el n ́umero de identificaci ́on de un usuario.
 idDeUsuario :: Usuario -> Integer
 idDeUsuario (id, _) = id 
 
+-- Devuelve el nombre de un usuario.
 nombreDeUsuario :: Usuario -> String
 nombreDeUsuario (_, nombre) = nombre 
 
+-- Devuelve el usuario de una publicaci on.
 usuarioDePublicacion :: Publicacion -> Usuario
 usuarioDePublicacion (u, _, _) = u
 
+-- Devuelve el conjunto de usuarios que le dieron me gusta a una publicaci on.
 likesDePublicacion :: Publicacion -> [Usuario]
 likesDePublicacion (_, _, us) = us
 
--- Ejercicios
+--------------------------------------------------- Ejercicios
 
 -- describir qué hace la función: .....
 nombresDeUsuarios :: RedSocial -> [String]
@@ -76,7 +83,7 @@ tieneUnSeguidorFiel = undefined
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
 existeSecuenciaDeAmigos = undefined
 
--------------------------------------------------- Predicados --------------------------------------
+-------------------------------------------------- Predicados
 
 ----------------------------------------------------------------------------------------------------
 
@@ -252,7 +259,8 @@ sinRepetidos :: (Eq t) => [t] -> Bool
 sinRepetidos l = todosDistintos l
 
 ----------------------------------------------------------------------------------------------------
--------------------------------------------------- Variables de Tests ------------------------------
+
+-------------------------------------------------- Variables de Tests 
 
 usuario1 = (1, "Juan")
 usuario2 = (2, "Natalia")
