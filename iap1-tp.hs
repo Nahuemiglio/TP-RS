@@ -90,7 +90,9 @@ existeSecuenciaDeAmigos = undefined
 -- Valida si un elemento pertenece a una lista.
 pertenece :: (Eq t) => t -> [t] -> Bool
 pertenece e [] = False
-pertenece e (x:xs) = e == x || pertenece e xs
+pertenece e l = e == hl || pertenece e tl
+                where hl = head(l)
+                      tl = tail(l)
 
 ----------------------------------------------------------------------------------------------------
 
