@@ -182,16 +182,16 @@ idsDeUsuariosRelacionados rels = [(idu1, idu2)]++idsDeUsuariosRelacionados(tail(
 
 ----------------------------------------------------------------------------------------------------
 
--- Valida que no hay publicaciones repetidas
+-- Valida que las publicaciones en una lista de pubicaciones son válidas, chequeando los usuarios que las hicieron, los usuarios que les dieron like y que no estén duplicadas.
 publicacionesValidas :: [Usuario] -> [Publicacion] -> Bool
-publicacionesValidas us pubs = usuariosDePublicacionSonUsuariosDeRed us pubs && noHayPublicacionesRepetidas pubs
+publicacionesValidas us pubs = (usuariosDePublicacionSonUsuariosDeRed us pubs) && (usuariosDeLikeDePublicacionesSonUsuariosDeRed us pubs) && (noHayPublicacionesRepetidas pubs)
 
 ----------------------------------------------------------------------------------------------------
 
 -- Valida que las publicaciones están hechas por ususarios de una lista de usuarios
 usuariosDePublicacionSonUsuariosDeRed :: [Usuario] -> [Publicacion] -> Bool
 usuariosDePublicacionSonUsuariosDeRed us [] = True
-usuariosDePublicacionSonUsuariosDeRed us pubs = pertenece up us && usuariosDePublicacionSonUsuariosDeRed us (tail(pubs))
+usuariosDePublicacionSonUsuariosDeRed us pubs = (pertenece up us) && (usuariosDePublicacionSonUsuariosDeRed us (tail(pubs)))
                                                 where up = usuarioDePublicacion(head(pubs))
 
 ----------------------------------------------------------------------------------------------------
@@ -199,7 +199,7 @@ usuariosDePublicacionSonUsuariosDeRed us pubs = pertenece up us && usuariosDePub
 -- Valida que todos los likes de cada publicación en una lista de publicaciones, son de usuarios que se encuentran en una lista de usuarios dada.
 usuariosDeLikeDePublicacionesSonUsuariosDeRed :: [Usuario] -> [Publicacion] -> Bool
 usuariosDeLikeDePublicacionesSonUsuariosDeRed us [] = True
-usuariosDeLikeDePublicacionesSonUsuariosDeRed us pubs = usuariosLikeValidos us usl && usuariosDeLikeDePublicacionesSonUsuariosDeRed us (tail(pubs))
+usuariosDeLikeDePublicacionesSonUsuariosDeRed us pubs = (usuariosLikeValidos us usl) && (usuariosDeLikeDePublicacionesSonUsuariosDeRed us (tail(pubs)))
                                                         where usl = likesDePublicacion(head(pubs))
 
 ----------------------------------------------------------------------------------------------------
