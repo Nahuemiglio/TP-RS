@@ -196,12 +196,21 @@ usuariosDePublicacionSonUsuariosDeRed us pubs = pertenece u us && usuariosDePubl
 
 ----------------------------------------------------------------------------------------------------
 
+-- Valida que todos los ususarios que dieron like a cada publicación en una lista de publicaciones, se encuentran en una lista de usuarios dada.
+usuariosDeLikeDePublicacionesSonUsuariosDeRed :: [Usuario] -> [Publicacion] -> Bool
+usuariosDeLikeDePublicacionesSonUsuariosDeRed us [] = True
+usuariosDeLikeDePublicacionesSonUsuariosDeRed us pubs = usuariosLikeValidos us usl && usuariosDeLikeDePublicacionesSonUsuariosDeRed us (tail(pubs))
+                                                        where usl = likesDePublicacion(head(pubs))
+
+----------------------------------------------------------------------------------------------------
+
+-- Valida que todo usuario de la segunda lista de usuarios se encuentra en la primera.
 usuariosLikeValidos :: [Usuario] -> [Usuario] -> Bool
 usuariosLikeValidos us usl = todoElemPertenece usl us
 
 ----------------------------------------------------------------------------------------------------
 
--- Valida que no haya publicaciones repetidas
+-- Valida que no hay publicaciones repetidas
 noHayPublicacionesRepetidas :: [Publicacion] -> Bool
 noHayPublicacionesRepetidas [] = True
 noHayPublicacionesRepetidas pubs = sinRepetidos(idsDeUsuariosYPublicaciones(pubs))
