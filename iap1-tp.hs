@@ -109,13 +109,13 @@ longitud (x:xs) = 1 + longitud xs
 -- Valida si todo elemento de la primer lista pertenece a la segunda.
 todoElemPertenece :: (Eq t) => [t] -> [t] -> Bool
 todoElemPertenece [] _ = True
-todoElemPertenece (x:xs) (y:ys) = pertenece x (y:ys) && todoElemPertenece xs (y:ys)
+todoElemPertenece (x:xs) (y:ys) = (pertenece x (y:ys)) && (todoElemPertenece xs (y:ys))
 
 ----------------------------------------------------------------------------------------------------
 
--- Valida que una red social sea válida cuando tiene ususarios, relaciones y publicaciones válidas.
+-- Valida que una red social sea válida cuando tiene usuarios, relaciones y publicaciones válidas.
 redSocialValida :: RedSocial -> Bool
-redSocialValida red = usuariosValidos (usuarios(red)) && relacionesValidas (usuarios(red)) (relaciones(red)) && publicacionesValidas (usuarios(red)) (publicaciones(red))
+redSocialValida red = (usuariosValidos (usuarios(red))) && (relacionesValidas (usuarios(red)) (relaciones(red))) && (publicacionesValidas (usuarios(red)) (publicaciones(red)))
 
 ----------------------------------------------------------------------------------------------------
 
