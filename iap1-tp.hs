@@ -203,14 +203,14 @@ noHayPublicacionesRepetidas pubs = sinRepetidos(idsDeUsuariosYPublicaciones(pubs
 
 -- Armar una lista con los ids de ususarios y los textos de las publicaciones
 idsDeUsuariosYPublicaciones :: [Publicacion] -> [(Integer, String)]
-idsDeUsuariosYPublicaciones (x:[]) = [(idDeUsuario(usuarioDePublicacion(x)), contenidoDePublicacion(x))]
-idsDeUsuariosYPublicaciones pubs = [(id, pub)] ++ idsDeUsuariosYPublicaciones (tail(pubs))
+idsDeUsuariosYPublicaciones [] = []
+idsDeUsuariosYPublicaciones pubs = [(id, txt)] ++ idsDeUsuariosYPublicaciones (tail(pubs))
                                    where id = idDeUsuario(usuarioDePublicacion(head(pubs)))
-                                         pub = contenidoDePublicacion(head(pubs))
+                                         txt = contenidoDePublicacion(head(pubs))
 
 -- Devuelve el texto de una publicación
 contenidoDePublicacion :: Publicacion -> String
-contenidoDePublicacion (a, b, c) = b
+contenidoDePublicacion (_, txt, _) = txt
 
 ----------------------------------------------------------------------------------------------------
 
