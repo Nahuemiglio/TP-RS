@@ -43,9 +43,25 @@ likesDePublicacion (_, _, us) = us
 
 --------------------------------------------------- Ejercicios
 
+----------------------------------------------------------------------------------------------------
+
 -- describir qué hace la función: .....
 nombresDeUsuarios :: RedSocial -> [String]
 nombresDeUsuarios = undefined
+
+-- -- Devuelve una lista con los nombres de usuario de una lista de usuarios
+-- proyectarNombres :: [Usuario] -> [String]
+-- proyectarNombres [] = []
+-- proyectarNombres us = un : proyectarNombres ust
+--                       where un = nombreDeUsuario(head(us))
+--                             ust = tail(us)
+
+-- eliminarRepetidos :: (Eq t) => [t] -> [t]
+-- eliminarRepetidos [] = []
+-- eliminarRepetidos (x:xs) | pertenece x xs = x : (eliminarRepetidos (quitarTodos x xs))
+--                          | otherwise = x : (eliminarRepetidos xs)
+
+----------------------------------------------------------------------------------------------------
 
 -- describir qué hace la función: .....
 amigosDe :: RedSocial -> Usuario -> [Usuario]
@@ -142,7 +158,7 @@ noHayIdsRepetidos us = sinRepetidos (idsDeUsuarios us)
 -- Devuelve una lista con los ids de una lista de usuarios.
 idsDeUsuarios :: [Usuario] -> [Integer]
 idsDeUsuarios [] = []
-idsDeUsuarios (x:xs) = [idDeUsuario x] ++ idsDeUsuarios xs
+idsDeUsuarios (x:xs) = (idDeUsuario x) : idsDeUsuarios xs
 
 ----------------------------------------------------------------------------------------------------
 
@@ -178,7 +194,7 @@ noHayRelacionesRepetidas rels = sinRepetidos(idsDeUsuariosRelacionados(rels))
 -- Dada una lista de relaciones, devuelve una lista de relaciones reemplazando cada usuario por su id.
 idsDeUsuariosRelacionados :: [Relacion] -> [(Integer, Integer)]
 idsDeUsuariosRelacionados [] = []
-idsDeUsuariosRelacionados rels = [(idu1, idu2)] ++ idsDeUsuariosRelacionados (tail(rels))
+idsDeUsuariosRelacionados rels = (idu1, idu2) : idsDeUsuariosRelacionados (tail(rels))
                                  where idu1 = idDeUsuario(fst(head(rels)))
                                        idu2 = idDeUsuario(snd(head(rels)))
 
@@ -220,7 +236,7 @@ noHayPublicacionesRepetidas pubs = sinRepetidos(idsDeUsuariosYPublicaciones(pubs
 -- Armar una lista con los ids de ususarios y los textos de las publicaciones
 idsDeUsuariosYPublicaciones :: [Publicacion] -> [(Integer, String)]
 idsDeUsuariosYPublicaciones [] = []
-idsDeUsuariosYPublicaciones pubs = [(id, txt)] ++ idsDeUsuariosYPublicaciones (tail(pubs))
+idsDeUsuariosYPublicaciones pubs = (id, txt) : idsDeUsuariosYPublicaciones (tail(pubs))
                                    where id = idDeUsuario(usuarioDePublicacion(head(pubs)))
                                          txt = contenidoDePublicacion(head(pubs))
 
