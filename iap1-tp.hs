@@ -131,15 +131,15 @@ usuarioValido u = idDeUsuario(u) > 0 && longitud(nombreDeUsuario(u)) > 0
 
 ----------------------------------------------------------------------------------------------------
 
--- Valida que no haya ids repetidos en una lista de usuarios.
+-- Valida que no hay ids repetidos en una lista de usuarios.
 noHayIdsRepetidos :: [Usuario] -> Bool
 noHayIdsRepetidos [] = True
-noHayIdsRepetidos us = sinRepetidos(idsDeUsuarios(us))
+noHayIdsRepetidos us = sinRepetidos (idsDeUsuarios us)
 
 -- Devuelve una lista con los ids de una lista de usuarios.
 idsDeUsuarios :: [Usuario] -> [Integer]
-idsDeUsuarios (x:[]) = [idDeUsuario(x)]
-idsDeUsuarios (x:xs) = [idDeUsuario(x)]++idsDeUsuarios(xs)
+idsDeUsuarios [] = []
+idsDeUsuarios (x:xs) = [idDeUsuario x] ++ idsDeUsuarios xs
 
 ----------------------------------------------------------------------------------------------------
 
