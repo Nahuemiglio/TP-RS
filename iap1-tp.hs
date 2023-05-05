@@ -45,21 +45,39 @@ likesDePublicacion (_, _, us) = us
 
 ----------------------------------------------------------------------------------------------------
 
--- describir qué hace la función: .....
+-- Dada una red, devuelve una lista con sus nombres de usuarios.
 nombresDeUsuarios :: RedSocial -> [String]
-nombresDeUsuarios = undefined
+nombresDeUsuarios red = proyectarNombres (usuarios red)
 
--- -- Devuelve una lista con los nombres de usuario de una lista de usuarios
--- proyectarNombres :: [Usuario] -> [String]
--- proyectarNombres [] = []
--- proyectarNombres us = un : proyectarNombres ust
---                       where un = nombreDeUsuario(head(us))
---                             ust = tail(us)
+-- Dada una lista de usuarios, evuelve una lista sus nombres sin repeticiones.
+proyectarNombres :: [Usuario] -> [String]
+proyectarNombres us = eliminarRepetidos (listaDeNombres us)
 
--- eliminarRepetidos :: (Eq t) => [t] -> [t]
--- eliminarRepetidos [] = []
--- eliminarRepetidos (x:xs) | pertenece x xs = x : (eliminarRepetidos (quitarTodos x xs))
---                          | otherwise = x : (eliminarRepetidos xs)
+-- Dada una lista de usuarios, devuelve una lista con sus nombres.
+listaDeNombres :: [Usuario] -> [String]
+listaDeNombres [] = []
+listaDeNombres us = un : listaDeNombres ust
+                    where un = nombreDeUsuario (head(us))
+                          ust = tail(us)
+
+-- Dada una lista, devuelve la lista sin repetición de elementos.
+eliminarRepetidos :: (Eq t) => [t] -> [t]
+eliminarRepetidos [] = []
+eliminarRepetidos (x:xs) | pertenece x xs = x : (eliminarRepetidos (quitarTodos x xs))
+                         | otherwise = x : (eliminarRepetidos xs)
+
+-- Dada una lista de elementos y un elemento, evuelve una lista con ninguna aparición de ese elemento.
+quitarTodos :: (Eq t) => t -> [t] -> [t]
+quitarTodos e [] = []
+quitarTodos e (x:xs) | pertenece e (x:xs) = quitarTodos e (quitar e (x:xs))
+                     | otherwise = (x:xs)
+
+-- Dada una lista de elementos y un elemento, devuelve la lista sin la primera aparición de ese elemento.
+quitar :: (Eq t) => t -> [t] -> [t]
+quitar e [] = []
+quitar e (x:xs) | e == x = xs
+                | pertenece e xs = x:(quitar e xs)
+                | otherwise = (x:xs)
 
 ----------------------------------------------------------------------------------------------------
 
@@ -302,6 +320,9 @@ usuario2 = (2, "Natalia")
 usuario3 = (3, "Pedro")
 usuario4 = (4, "Mariela")
 usuario5 = (5, "Natalia")
+usuario6 = (6, "Juan")
+usuario7 = (7, "Carlos")
+usuario8 = (8, "Pepe")
 
 relacion1_2 = (usuario1, usuario2)
 relacion1_3 = (usuario1, usuario3)
@@ -336,3 +357,5 @@ usuariosB = [usuario1, usuario2, usuario3, usuario5]
 relacionesB = [relacion1_2, relacion2_3]
 publicacionesB = [publicacion1_3, publicacion1_4, publicacion1_5, publicacion3_1, publicacion3_2, publicacion3_3]
 redB = (usuariosB, relacionesB, publicacionesB)
+
+usuariosC = [usuario1, usuario2, usuario3, usuario4, usuario5, usuario6, usuario7, usuario8]
