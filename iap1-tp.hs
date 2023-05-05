@@ -81,17 +81,39 @@ quitar e (x:xs) | e == x = xs
 
 ----------------------------------------------------------------------------------------------------
 
--- describir qué hace la función: .....
+-- Dada una red y un usuario, devuelve una lista con todos los usuarios con los que se relaciona el usuario en esa red.
 amigosDe :: RedSocial -> Usuario -> [Usuario]
-amigosDe = undefined
+amigosDe red u = amigosDeEnListaDeRelaciones (relaciones red) u
 
--- describir qué hace la función: .....
+-- Dada una lista de relaciones y un usuario, devuelve una lista con todos los usuarios con los que se relaciones el usuario.
+amigosDeEnListaDeRelaciones :: [Relacion] -> Usuario -> [Usuario]
+amigosDeEnListaDeRelaciones [] u = []
+amigosDeEnListaDeRelaciones rels u | pupr == u = supr : amigosDeEnListaDeRelaciones (tail(rels)) u
+                                   | supr == u = pupr : amigosDeEnListaDeRelaciones (tail(rels)) u
+                                   | otherwise = amigosDeEnListaDeRelaciones (tail(rels)) u
+                                     where pupr = fst(head(rels))
+                                           supr = snd(head(rels))
+
+----------------------------------------------------------------------------------------------------
+
+-- Dada una red y un usuario, devuelve la longitud de la lista de amigos del usuario en esa red.
 cantidadDeAmigos :: RedSocial -> Usuario -> Int
-cantidadDeAmigos = undefined
+cantidadDeAmigos red u = fromInteger(longitud (amigosDe red u))
 
--- describir qué hace la función: .....
+----------------------------------------------------------------------------------------------------
+
+-- 
 usuarioConMasAmigos :: RedSocial -> Usuario
-usuarioConMasAmigos = undefined
+usuarioConMasAmigos red = compararCantidadDeAmigos red (usuarios red)
+
+compararCantidadDeAmigos :: RedSocial -> [Usuario] -> Usuario
+compararCantidadDeAmigos red (x:[]) = x
+compararCantidadDeAmigos red us | cantidadDeAmigos red u1 <= cantidadDeAmigos red u2 = compararCantidadDeAmigos red (tail(us))
+                                | otherwise = compararCantidadDeAmigos red (quitar u2 us)
+                                  where u1 = head(us)
+                                        u2 = head(tail(us))
+
+----------------------------------------------------------------------------------------------------
 
 -- describir qué hace la función: .....
 estaRobertoCarlos :: RedSocial -> Bool
