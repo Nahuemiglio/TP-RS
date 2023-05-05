@@ -87,7 +87,7 @@ existeSecuenciaDeAmigos = undefined
 
 ----------------------------------------------------------------------------------------------------
 
--- Valida si un elemento pertenece a una lista.
+-- Valida que un elemento pertenece a una lista.
 pertenece :: (Eq t) => t -> [t] -> Bool
 pertenece e [] = False
 pertenece e l = e == hl || pertenece e tl
@@ -96,7 +96,7 @@ pertenece e l = e == hl || pertenece e tl
 
 ----------------------------------------------------------------------------------------------------
 
--- Valida si ambas listas tienen la misma longitud y los mismo elementos, sin importar las repeticiones.
+-- Valida que ambas listas tienen la misma longitud y los mismos elementos, sin importar las repeticiones.
 mismosElementos :: (Eq t) => [t] -> [t] -> Bool
 mismosElementos [] [] = True
 mismosElementos l1 l2 = (longitud l1 == longitud l2) && (todoElemPertenece l1 l2) && (todoElemPertenece l2 l1)
@@ -106,7 +106,7 @@ longitud :: [t] -> Integer
 longitud [] = 0
 longitud (x:xs) = 1 + longitud xs
 
--- Valida si todo elemento de la primer lista pertenece a la segunda.
+-- Valida que todo elemento de la primer lista pertenece a la segunda.
 todoElemPertenece :: (Eq t) => [t] -> [t] -> Bool
 todoElemPertenece [] _ = True
 todoElemPertenece (x:xs) (y:ys) = (pertenece x (y:ys)) && (todoElemPertenece xs (y:ys))
