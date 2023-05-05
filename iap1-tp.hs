@@ -175,8 +175,8 @@ noHayRelacionesRepetidas rels = sinRepetidos(idsDeUsuariosRelacionados(rels))
 
 -- Dada una lista de relaciones, devuelve una lista de relaciones reemplazando cada usuario por su id.
 idsDeUsuariosRelacionados :: [Relacion] -> [(Integer, Integer)]
-idsDeUsuariosRelacionados (x:[]) = [(idDeUsuario(fst(x)), idDeUsuario(snd(x)))]
-idsDeUsuariosRelacionados rels = [(idu1, idu2)]++idsDeUsuariosRelacionados(tail(rels))
+idsDeUsuariosRelacionados [] = []
+idsDeUsuariosRelacionados rels = [(idu1, idu2)] ++ idsDeUsuariosRelacionados (tail(rels))
                                  where idu1 = idDeUsuario(fst(head(rels)))
                                        idu2 = idDeUsuario(snd(head(rels)))
 
