@@ -145,11 +145,11 @@ idsDeUsuarios (x:xs) = [idDeUsuario(x)]++idsDeUsuarios(xs)
 
 -- Valida que todas las relaciones sean válidas tanto porque los usuarios existan como porque las relaciones sean únicas.
 relacionesValidas :: [Usuario] -> [Relacion] -> Bool
-relacionesValidas us rels = usuariosDeRelacionValidos us rels && relacionesAsimetricas(rels) && noHayRelacionesRepetidas(rels)
+relacionesValidas us rels = (usuariosDeRelacionValidos us rels) && (relacionesAsimetricas rels) && (noHayRelacionesRepetidas rels)
 
 ----------------------------------------------------------------------------------------------------
 
--- Valida que si hay una relación entre ususarios, ambos pertenezcan a la lista de usuarios y no sean el mismo
+-- Valida que si hay una relación entre ususarios, ambos pertenecen a la lista de usuarios y no son el mismo
 usuariosDeRelacionValidos :: [Usuario] -> [Relacion] -> Bool
 usuariosDeRelacionValidos us [] = True
 usuariosDeRelacionValidos us rels = (u1 /= u2 && pertenece u1 us && pertenece u2 us) && (usuariosDeRelacionValidos us (tail(rels)))
@@ -158,7 +158,7 @@ usuariosDeRelacionValidos us rels = (u1 /= u2 && pertenece u1 us && pertenece u2
 
 ----------------------------------------------------------------------------------------------------
 
--- Valida que no haya relaciones simétricas
+-- Valida que no hay relaciones simétricas
 relacionesAsimetricas :: [Relacion] -> Bool
 relacionesAsimetricas [] = True
 relacionesAsimetricas rels = not (pertenece (u2, u1) rels) && relacionesAsimetricas (tail(rels))
