@@ -115,7 +115,7 @@ todoElemPertenece (x:xs) (y:ys) = (pertenece x (y:ys)) && (todoElemPertenece xs 
 
 -- Valida que una red social sea válida cuando tiene usuarios, relaciones y publicaciones válidas.
 redSocialValida :: RedSocial -> Bool
-redSocialValida red = (usuariosValidos (usuarios(red))) && (relacionesValidas (usuarios(red)) (relaciones(red))) && (publicacionesValidas (usuarios(red)) (publicaciones(red)))
+redSocialValida red = (usuariosValidos (usuarios red)) && (relacionesValidas (usuarios red) (relaciones red)) && (publicacionesValidas (usuarios red) (publicaciones red))
 
 ----------------------------------------------------------------------------------------------------
 
