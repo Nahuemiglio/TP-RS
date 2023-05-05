@@ -151,8 +151,7 @@ relacionesValidas us rels = usuariosDeRelacionValidos us rels && relacionesAsime
 
 -- Valida que si hay una relación entre ususarios, ambos pertenezcan a la lista de usuarios y no sean el mismo
 usuariosDeRelacionValidos :: [Usuario] -> [Relacion] -> Bool
-usuariosDeRelacionValidos us [] = False
-usuariosDeRelacionValidos us (x:[]) = fst(x) /= snd(x) && pertenece (fst(x)) us && pertenece (snd(x)) us
+usuariosDeRelacionValidos us [] = True
 usuariosDeRelacionValidos us rels = (u1 /= u2 && pertenece u1 us && pertenece u2 us) && (usuariosDeRelacionValidos us (tail(rels)))
                                     where u1 = fst(head(rels))
                                           u2 = snd(head(rels))
