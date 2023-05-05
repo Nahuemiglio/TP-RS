@@ -125,9 +125,9 @@ usuariosValidos us = usuarioValido (head(us)) && usuariosValidos (tail(tail(us))
 
 ----------------------------------------------------------------------------------------------------
 
--- Valida el ID y nombre de usuario, teniendo que ser ambos mayores a cero.
+-- Valida el ID y nombre de usuario, en el primer caso siendo mayor a cero y en el segundo siendo su longitud mayor a cero.
 usuarioValido :: Usuario -> Bool
-usuarioValido u = idDeUsuario(u) > 0 && longitud(nombreDeUsuario(u)) > 0
+usuarioValido u = ((idDeUsuario u) > 0) && ((longitud (nombreDeUsuario u)) > 0)
 
 ----------------------------------------------------------------------------------------------------
 
