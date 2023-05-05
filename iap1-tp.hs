@@ -121,7 +121,10 @@ redSocialValida red = (usuariosValidos (usuarios(red))) && (relacionesValidas (u
 
 -- Valida que todos los ususarios de la lista sean válidos y no haya ids repetidos
 usuariosValidos :: [Usuario] -> Bool
-usuariosValidos us = usuarioValido (head(us)) && usuariosValidos (tail(tail(us))) && noHayIdsRepetidos us
+usuariosValidos [] = True
+usuariosValidos us = ((usuarioValido u) && (usuariosValidos ust)) && (noHayIdsRepetidos us)
+                     where u = head(us)
+                           ust = tail(us)
 
 ----------------------------------------------------------------------------------------------------
 
