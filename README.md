@@ -12,10 +12,21 @@
     Las definiciones de variables en el "where" se harán a un costado del mismo y con el nombre de la variable a la izquierda.
     
     Ej:
+        where nombre1 = def1
+              nombre2 = def2
+
+3) Operadores en listas
+
+    Se usará el operador ":" y no el operador "++".
+
+    Ej: 
+        elem : [] (SI)
+        [elem] ++ [] (NO)
+        
+4) Guardas
+
+    La primer guarda de la función se hará al lado de las variables y no debajo.
     
-      where nombre1 = def1
-            nombre2 = def2
-
-3) Para agregar elementos a lista lo harémos con el operador (:) en lugar de (++).
-
     Ej:
+        funcion a b c | guarda1...
+                      | guarda2...
