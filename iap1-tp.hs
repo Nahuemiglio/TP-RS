@@ -157,9 +157,18 @@ lesGustanLasMismasPublicaciones red u1 u2 = mismosElementos (publicacionesQueLeG
 
 ----------------------------------------------------------------------------------------------------
 
--- describir qué hace la función: .....
+-- Dada una red y un usuario, verifica si hay alguien en la lista de usuarios de la red que le haya dado like a todas las publicaciones en la red del usuario. 
 tieneUnSeguidorFiel :: RedSocial -> Usuario -> Bool
-tieneUnSeguidorFiel = undefined
+tieneUnSeguidorFiel red u = algunoLeDioLikeATodasPublicaciones red (publicacionesDe red u) (usuarios red) 
+
+-- Dada una red, una lista de publicaciones y una lista de usuarios, verifica si toda publicación de la lista de publicaciones pertenece a la lista de publicaciones que le gustan a algún usuario en la lista de usuarios.
+algunoLeDioLikeATodasPublicaciones :: RedSocial -> [Publicacion] -> [Usuario] -> Bool
+algunoLeDioLikeATodasPublicaciones _ _ [] = False
+algunoLeDioLikeATodasPublicaciones red pubs us = (todoElemPertenece pubs (publicacionesQueLeGustanA red u)) || (algunoLeDioLikeATodasPublicaciones red pubs usres)
+                                                 where u = head(us)
+                                                       usres = tail(us)
+
+----------------------------------------------------------------------------------------------------
 
 -- describir qué hace la función: .....
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
