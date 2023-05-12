@@ -1,10 +1,11 @@
--- Completar con los datos del grupo
---
--- Nombre de Grupo: xx
--- Integrante 1: Nombre Apellido, email, LU
--- Integrante 2: Nombre Apellido, email, LU
--- Integrante 3: Nombre Apellido, email, LU
--- Integrante 4: Nombre Apellido, email, LU
+-- Nombre de Grupo: chachipiti
+
+-- Integrante 1: Miglioranza Da Silva Nahuel, nahuemiglio@gmail.com, 279/19
+-- Integrante 2: Briccola Francina, franbriccola2309@gmail.com, 1582/21
+-- Integrante 3: Mercado Ernesto Josue, mercadoernesto645@gmail.com, 174/22
+-- Integrante 4: Tejerina Augusto Damián, damiantgrina@gmail.com, 708/23
+
+--------------------------------------------------- Declaración de tipos
 
 type Usuario = (Integer, String) -- (id, nombre)
 type Relacion = (Usuario, Usuario) -- usuarios que se relacionan
@@ -43,7 +44,7 @@ likesDePublicacion (_, _, us) = us
 
 --------------------------------------------------- Ejercicios
 
-----------------------------------------------------------------------------------------------------
+--------------------------------------------------- Problema 1
 
 -- Dada una red, devuelve una lista con sus nombres de usuarios.
 nombresDeUsuarios :: RedSocial -> [String]
@@ -79,7 +80,7 @@ quitar e (x:xs) | e == x = xs
                 | pertenece e xs = x:(quitar e xs)
                 | otherwise = (x:xs)
 
-----------------------------------------------------------------------------------------------------
+--------------------------------------------------- Problema 2
 
 -- Dada una red y un usuario, devuelve una lista con todos los usuarios con los que se relaciona el usuario en esa red.
 amigosDe :: RedSocial -> Usuario -> [Usuario]
@@ -94,13 +95,13 @@ amigosDeEnListaDeRelaciones rels u | u1 == u = u2 : amigosDeEnListaDeRelaciones 
                                      where u1 = fst(head(rels))
                                            u2 = snd(head(rels))
 
-----------------------------------------------------------------------------------------------------
+--------------------------------------------------- Problema 3
 
 -- Dada una red y un usuario, devuelve la longitud de la lista de amigos del usuario en esa red.
 cantidadDeAmigos :: RedSocial -> Usuario -> Int
 cantidadDeAmigos red u = fromInteger(longitud (amigosDe red u))
 
-----------------------------------------------------------------------------------------------------
+--------------------------------------------------- Problema 4
 
 -- Dada una red social, devuelve el usuario con más amigos en la misma.
 usuarioConMasAmigos :: RedSocial -> Usuario
@@ -114,13 +115,13 @@ compararCantidadDeAmigos red us | cantidadDeAmigos red u1 <= cantidadDeAmigos re
                                   where u1 = head(us)
                                         u2 = head(tail(us))
 
-----------------------------------------------------------------------------------------------------
+--------------------------------------------------- Problema 5
 
 -- Dada una red, valida si hay un usuario con más de un millón de amigos.
 estaRobertoCarlos :: RedSocial -> Bool
 estaRobertoCarlos red = (cantidadDeAmigos red (usuarioConMasAmigos red)) > 1000000000
 
-----------------------------------------------------------------------------------------------------
+--------------------------------------------------- Problema 6
 
 -- Dada una red y un usuario, devuelve la lista de todas las publicaciones del usuario en esa red.
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
@@ -135,7 +136,7 @@ filtrarPublicacionesPorUsuario u pubs | u == upub = pub : (filtrarPublicacionesP
                                               pubsres = tail(pubs)
                                               upub = usuarioDePublicacion pub
 
-----------------------------------------------------------------------------------------------------
+--------------------------------------------------- Problema 7
 
 -- Dada una red y un usuario, devuelve la lista de todas las publicaciones a las cuales el usuario les puso like en esa red.
 publicacionesQueLeGustanA :: RedSocial -> Usuario -> [Publicacion]
@@ -150,13 +151,13 @@ filtrarPublicacionesConLikeDeUsuario u pubs | (pertenece u likespub) = pub : (fi
                                                     pubsres = tail(pubs)
                                                     likespub = likesDePublicacion pub
 
-----------------------------------------------------------------------------------------------------
+--------------------------------------------------- Problema 8
 
 -- Dada una red y dos usuarios verifica si ambos le dieron like a las mismas publicaciones.
 lesGustanLasMismasPublicaciones :: RedSocial -> Usuario -> Usuario -> Bool
 lesGustanLasMismasPublicaciones red u1 u2 = mismosElementos (publicacionesQueLeGustanA red u1) (publicacionesQueLeGustanA red u2)
 
-----------------------------------------------------------------------------------------------------
+--------------------------------------------------- Problema 9
 
 -- Dada una red y un usuario, verifica si hay alguien en la lista de usuarios de la red que le haya dado like a todas las publicaciones en la red del usuario. 
 tieneUnSeguidorFiel :: RedSocial -> Usuario -> Bool
@@ -169,7 +170,7 @@ algunoLeDioLikeATodasPublicaciones red pubs us = (todoElemPertenece pubs (public
                                                  where u = head(us)
                                                        usres = tail(us)
 
-----------------------------------------------------------------------------------------------------
+--------------------------------------------------- Problema 10
 
 -- describir qué hace la función: .....
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
