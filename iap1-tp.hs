@@ -164,8 +164,8 @@ longitud (x:xs) = 1 + longitud xs
 
 -- Valida que todo elemento de la primer lista pertenece a la segunda.
 todoElemPertenece :: (Eq t) => [t] -> [t] -> Bool
-todoElemPertenece [] _ = True
-todoElemPertenece (x:xs) (y:ys) = (pertenece x (y:ys)) && (todoElemPertenece xs (y:ys))
+todoElemPertenece [] b = True
+todoElemPertenece (x:xs) b = (pertenece x b) && (todoElemPertenece xs b)
 
 ----------------------------------------------------------------------------------------------------
 
