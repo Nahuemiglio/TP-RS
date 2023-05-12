@@ -1,3 +1,5 @@
+module TestsCatedra where
+
 import Test.HUnit
 import Solucion
 
