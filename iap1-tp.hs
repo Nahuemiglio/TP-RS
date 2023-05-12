@@ -121,9 +121,20 @@ estaRobertoCarlos red = (cantidadDeAmigos red (usuarioConMasAmigos red)) > 10000
 
 ----------------------------------------------------------------------------------------------------
 
--- describir qué hace la función: .....
+-- Dada una red y un usuario, devuelve la lista de todas las publicaciones del usuario en esa red.
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
-publicacionesDe = undefined
+publicacionesDe red u = filtrarPublicacionesPorUsuario u (publicaciones red)
+
+-- Dado un usuario y una lista de publicaciones, devuelve la lista de todas las publicaciones que sean del usuario en la lista de publicaciones.
+filtrarPublicacionesPorUsuario :: Usuario -> [Publicacion] -> [Publicacion]
+filtrarPublicacionesPorUsuario _ [] = []
+filtrarPublicacionesPorUsuario u pubs | u == upub = pub : (filtrarPublicacionesPorUsuario u pubsres)
+                                      | otherwise = filtrarPublicacionesPorUsuario u pubsres
+                                        where pub = head(pubs)
+                                              pubsres = tail(pubs)
+                                              upub = usuarioDePublicacion pub
+
+----------------------------------------------------------------------------------------------------
 
 -- describir qué hace la función: .....
 publicacionesQueLeGustanA :: RedSocial -> Usuario -> [Publicacion]
