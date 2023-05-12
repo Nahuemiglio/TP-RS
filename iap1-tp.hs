@@ -136,9 +136,20 @@ filtrarPublicacionesPorUsuario u pubs | u == upub = pub : (filtrarPublicacionesP
 
 ----------------------------------------------------------------------------------------------------
 
--- describir qué hace la función: .....
+-- Dada una red y un usuario, devuelve la lista de todas las publicaciones a las cuales el usuario les puso like en esa red.
 publicacionesQueLeGustanA :: RedSocial -> Usuario -> [Publicacion]
-publicacionesQueLeGustanA = undefined
+publicacionesQueLeGustanA red u = filtrarPublicacionesConLikeDeUsuario u (publicaciones red)  
+
+-- Dado un usuario y una lista de publicaciones, devuelve la lista de todas publicaciones a las que el usuarios les puso like en la lista de publicaciones.
+filtrarPublicacionesConLikeDeUsuario :: Usuario -> [Publicacion] -> [Publicacion]
+filtrarPublicacionesConLikeDeUsuario _ [] = []
+filtrarPublicacionesConLikeDeUsuario u pubs | (pertenece u likespub) = pub : (filtrarPublicacionesConLikeDeUsuario u pubsres)
+                                            | otherwise = filtrarPublicacionesConLikeDeUsuario u pubsres
+                                              where pub = head(pubs)
+                                                    pubsres = tail(pubs)
+                                                    likespub = likesDePublicacion pub
+
+----------------------------------------------------------------------------------------------------
 
 -- describir qué hace la función: .....
 lesGustanLasMismasPublicaciones :: RedSocial -> Usuario -> Usuario -> Bool
