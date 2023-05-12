@@ -115,9 +115,11 @@ compararCantidadDeAmigos red us | cantidadDeAmigos red u1 <= cantidadDeAmigos re
 
 ----------------------------------------------------------------------------------------------------
 
--- describir qué hace la función: .....
+-- Dada una red, valida si hay un usuario con más de un millón de amigos.
 estaRobertoCarlos :: RedSocial -> Bool
-estaRobertoCarlos = undefined
+estaRobertoCarlos red = (cantidadDeAmigos red (usuarioConMasAmigos red)) > 1000000000
+
+----------------------------------------------------------------------------------------------------
 
 -- describir qué hace la función: .....
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
