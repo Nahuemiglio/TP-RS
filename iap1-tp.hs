@@ -151,9 +151,11 @@ filtrarPublicacionesConLikeDeUsuario u pubs | (pertenece u likespub) = pub : (fi
 
 ----------------------------------------------------------------------------------------------------
 
--- describir qué hace la función: .....
+-- Dada una red y dos usuarios verifica si ambos le dieron like a las mismas publicaciones.
 lesGustanLasMismasPublicaciones :: RedSocial -> Usuario -> Usuario -> Bool
-lesGustanLasMismasPublicaciones = undefined
+lesGustanLasMismasPublicaciones red u1 u2 = mismosElementos (publicacionesQueLeGustanA red u1) (publicacionesQueLeGustanA red u2)
+
+----------------------------------------------------------------------------------------------------
 
 -- describir qué hace la función: .....
 tieneUnSeguidorFiel :: RedSocial -> Usuario -> Bool
