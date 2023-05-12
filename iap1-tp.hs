@@ -88,11 +88,11 @@ amigosDe red u = amigosDeEnListaDeRelaciones (relaciones red) u
 -- Dada una lista de relaciones y un usuario, devuelve una lista con todos los usuarios con los que se relaciones el usuario.
 amigosDeEnListaDeRelaciones :: [Relacion] -> Usuario -> [Usuario]
 amigosDeEnListaDeRelaciones [] u = []
-amigosDeEnListaDeRelaciones rels u | pupr == u = supr : amigosDeEnListaDeRelaciones (tail(rels)) u
-                                   | supr == u = pupr : amigosDeEnListaDeRelaciones (tail(rels)) u
+amigosDeEnListaDeRelaciones rels u | u1 == u = u2 : amigosDeEnListaDeRelaciones (tail(rels)) u
+                                   | u2 == u = u1 : amigosDeEnListaDeRelaciones (tail(rels)) u
                                    | otherwise = amigosDeEnListaDeRelaciones (tail(rels)) u
-                                     where pupr = fst(head(rels))
-                                           supr = snd(head(rels))
+                                     where u1 = fst(head(rels))
+                                           u2 = snd(head(rels))
 
 ----------------------------------------------------------------------------------------------------
 
@@ -102,10 +102,11 @@ cantidadDeAmigos red u = fromInteger(longitud (amigosDe red u))
 
 ----------------------------------------------------------------------------------------------------
 
--- 
+-- Dada una red social, devuelve el usuario con más amigos en la misma.
 usuarioConMasAmigos :: RedSocial -> Usuario
 usuarioConMasAmigos red = compararCantidadDeAmigos red (usuarios red)
 
+-- Dada una red social y una lista de usuarios, devuelve el usuario con más relaciones (más amigos) en la lista de usuarios.
 compararCantidadDeAmigos :: RedSocial -> [Usuario] -> Usuario
 compararCantidadDeAmigos red (x:[]) = x
 compararCantidadDeAmigos red us | cantidadDeAmigos red u1 <= cantidadDeAmigos red u2 = compararCantidadDeAmigos red (tail(us))
@@ -172,7 +173,36 @@ algunoLeDioLikeATodasPublicaciones red pubs us = (todoElemPertenece pubs (public
 
 -- describir qué hace la función: .....
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
-existeSecuenciaDeAmigos = undefined
+existeSecuenciaDeAmigos red u1 u2 = pertenecenAlMismoGrupo u1 u2 grupos
+      where grupos = agrupar [[]] (relaciones red)
+
+
+-- dada una lista de lista de usuarios o lista de "grupos" toma una relación y si uno de los usuarios de la rel
+-- pertenece a algún grupo existente, añade a ambos usuarios de la relación al grupo
+-- en otro caso crea un nuevo grupo
+
+-- dicho de otra forma
+-- dada una lista de listas de usuarios o lista de "grupos" añade a todo usuario al grupo con el cual se relaciona
+agrupar :: [[Usuario]] -> [Relacion] -> [[Usuario]]
+agrupar _ [] = []
+agrupar grupos rels = agregarAlGrupo ( agrupar grupos relRes ) rel 
+      where (rel:relRes) = rels
+
+-- agrega un usuario al grupo al cual pertenece (se relaciona con algún miembro), sino crea un nuevo grupo
+agregarAlGrupo :: [[Usuario]] -> Relacion -> [[Usuario]]
+agregarAlGrupo [[]] (u1,u2) = [[u1]++[u2]]
+agregarAlGrupo [] (a, b) = [[a]++[b]]
+agregarAlGrupo grupos rel
+      | pertenece u1 grup1 = [grup1++[u2]]++grupRes
+      | pertenece u2 grup1 = [grup1++[u1]]++grupRes
+      | otherwise = [grup1] ++ agregarAlGrupo grupRes rel
+      where
+            (grup1:grupRes) = grupos
+            (u1, u2) = rel
+
+pertenecenAlMismoGrupo :: (Eq t) => t -> t -> [[t]] -> Bool
+pertenecenAlMismoGrupo u1 u2 [] = False
+pertenecenAlMismoGrupo u1 u2 (grup1:grupRes) = ((pertenece u1 grup1) && (pertenece u2 grup1)) || pertenecenAlMismoGrupo u1 u2 grupRes
 
 -------------------------------------------------- Predicados
 
