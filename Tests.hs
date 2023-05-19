@@ -53,7 +53,7 @@ testsuite7 = test  [
  ]
 
 testsuite8 = test  [
-    "Caso 1: Hay publicaciones sin 'me gusta' en común" ~: (lesGustanLasMismasPublicaciones redC usuario1 usuario5) ~?= True,
+    "Caso 1: A los usuarios les gustaron publicaciones diferentes" ~: (lesGustanLasMismasPublicaciones redC usuario1 usuario3) ~?= False,
     "Caso 2: Hay publicaciones con algún 'me gusta' en común" ~: (lesGustanLasMismasPublicaciones redG usuario2 usuario4) ~?= False,
     "Caso 3: A ningún usuario le gustó al menos una publicación" ~: (lesGustanLasMismasPublicaciones redG usuario10 usuario11) ~?= True,
     "Caso 4: A los dos usuarios les gustaron las mismas publicaciones" ~: (lesGustanLasMismasPublicaciones redF usuario1 usuario5) ~?= True
@@ -61,7 +61,7 @@ testsuite8 = test  [
 
 testsuite9 = test [
     "Caso 1: El usuario no tiene publicaciones" ~: (tieneUnSeguidorFiel redD usuario4) ~?= False,
-    "Caso 2: El usuario tiene publicaciones sin 'me gusta'" ~: (tieneUnSeguidorFiel redF usuario1) ~?= False,
+    "Caso 2: El usuario tiene publicaciones sin 'me gusta'" ~: (tieneUnSeguidorFiel redF usuario6) ~?= False,
     "Caso 3: El usuario tiene distintas publicaciones con 'me gusta' de diferentes usuarios" ~: (tieneUnSeguidorFiel redG usuario6) ~?= False,
     "Caso 4: El usuario tiene 'me gusta' del mismo usuario en todas sus publicaciones" ~: (tieneUnSeguidorFiel redG usuario2) ~?= True
  ]
@@ -117,7 +117,7 @@ relacion12_11 = (usuario12, usuario11)
 
 -- PUBLICACIONES:
 
-publicacion1_1 = (usuario1, "Este es mi primer post", [])
+publicacion1_1 = (usuario1, "Este es mi primer post", [usuario3])
 publicacion1_2 = (usuario1, "Este es mi segundo post", [usuario2, usuario4])
 
 publicacion2_1 = (usuario2, "Este es mi primer post", [usuario4, usuario5])
@@ -135,7 +135,7 @@ publicacion5_1 = (usuario5, "Este es mi primer post", [usuario1])
 publicacion5_2 = (usuario5, "Este es mi segundo post", [usuario1, usuario3])
 publicacion5_3 = (usuario5, "Este es mi tercer post", [usuario9])
 
-publicacion6_1 = (usuario6, "Este es mi primer post", [usuario9])
+publicacion6_1 = (usuario6, "Este es mi primer post", [])
 publicacion6_2 = (usuario6, "Este es mi segundo post", [usuario2])
 
 
@@ -173,7 +173,7 @@ redE = (usuariosE, relacionesE, publicacionesE)
 
 usuariosF = [usuario1, usuario2, usuario3, usuario4, usuario5, usuario6, usuario7, usuario8, usuario9, usuario10, usuario11, usuario12]
 relacionesF = [relacion12_1, relacion12_2, relacion12_3, relacion12_4, relacion12_5, relacion12_6, relacion12_7, relacion12_8, relacion12_9, relacion12_10]
-publicacionesF = [publicacion1_1, publicacion3_3, publicacion4_1]
+publicacionesF = [publicacion1_1, publicacion3_3, publicacion4_1, publicacion6_1]
 redF = (usuariosF, relacionesF, publicacionesF)
 
 
