@@ -175,38 +175,37 @@ algunoLeDioLikeATodasPublicaciones red pubs us = (todoElemPertenece pubs (public
 
 --------------------------------------------------- Problema 10
 
--- describir qué hace la función: .....
+-- Dada una red y dos usuarios (u1 y u2), valida si ambos usuarios pertenecen a un mismo grupo. 
+-- Definimos grupo como una lista de usuarios donde es posible obtener una cadenaDeAmigos entre dos usuarios cualesquiera de ese grupo, formada dicha cadena con usuarios de esa lista.
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
-existeSecuenciaDeAmigos red u1 u2 = pertenecenAlMismoGrupo u1 u2 grupos
-      where grupos = agrupar [[]] (relaciones red)
+existeSecuenciaDeAmigos red u1 u2 = pertenecenAlMismoGrupo grupos u1 u2 
+                                    where grupos = agrupar [[]] (relaciones red)
 
+-- Dada una lista de grupos y dos usuarios (u1 y u2), valida si ambos usuarios pertenecen al mismo grupo..
+pertenecenAlMismoGrupo :: [[Usuario]] -> Usuario -> Usuario -> Bool
+pertenecenAlMismoGrupo [] u1 u2 = False
+pertenecenAlMismoGrupo grupos u1 u2 = ((pertenece u1 grupo) && (pertenece u2 grupo)) || pertenecenAlMismoGrupo gruposres u1 u2 
+                                      where grupo = head(grupos)
+                                            gruposres = tail(grupos)
 
--- dada una lista de lista de usuarios o lista de "grupos" toma una relación y si uno de los usuarios de la rel
--- pertenece a algún grupo existente, añade a ambos usuarios de la relación al grupo
--- en otro caso crea un nuevo grupo
-
--- dicho de otra forma
--- dada una lista de listas de usuarios o lista de "grupos" añade a todo usuario al grupo con el cual se relaciona
+-- Dada una lista de listas de usuarios y una lista de relaciones, añade a todo usuario al grupo en el cual se relacione con alguno de sus miembros.
 agrupar :: [[Usuario]] -> [Relacion] -> [[Usuario]]
 agrupar _ [] = []
-agrupar grupos rels = agregarAlGrupo ( agrupar grupos relRes ) rel 
-      where (rel:relRes) = rels
+agrupar grupos rels = agregarAlGrupo (agrupar grupos relsres) rel 
+                      where rel = head(rels)
+                            relsres = tail(rels)
 
--- agrega un usuario al grupo al cual pertenece (se relaciona con algún miembro), sino crea un nuevo grupo
+-- Dada una lista de listas de usuarios y una relación, agrega alguno de los usuarios de la relación a una lista de usuarios si está el otro usuario de la relación en dicha lista, si no crea una nueva lista de usuarios con ambos usuarios de la relación.
 agregarAlGrupo :: [[Usuario]] -> Relacion -> [[Usuario]]
-agregarAlGrupo [[]] (u1,u2) = [[u1]++[u2]]
-agregarAlGrupo [] (a, b) = [[a]++[b]]
-agregarAlGrupo grupos rel
-      | pertenece u1 grup1 = [grup1++[u2]]++grupRes
-      | pertenece u2 grup1 = [grup1++[u1]]++grupRes
-      | otherwise = [grup1] ++ agregarAlGrupo grupRes rel
-      where
-            (grup1:grupRes) = grupos
-            (u1, u2) = rel
-
-pertenecenAlMismoGrupo :: (Eq t) => t -> t -> [[t]] -> Bool
-pertenecenAlMismoGrupo u1 u2 [] = False
-pertenecenAlMismoGrupo u1 u2 (grup1:grupRes) = ((pertenece u1 grup1) && (pertenece u2 grup1)) || pertenecenAlMismoGrupo u1 u2 grupRes
+agregarAlGrupo [[]] (u1, u2) = [[u1, u2]]
+agregarAlGrupo [] (u1, u2) = [[u1, u2]]
+agregarAlGrupo grupos rel | pertenece u1 grupo = (u2:grupo) : gruposres
+                          | pertenece u2 grupo = (u1:grupo) : gruposres
+                          | otherwise = grupo : (agregarAlGrupo gruposres rel)
+                            where grupo = head(grupos)
+                                  gruposres = tail(grupos)
+                                  u1 = fst(rel)
+                                  u2 = snd(rel)
 
 -------------------------------------------------- Predicados
 
