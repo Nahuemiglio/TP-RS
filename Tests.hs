@@ -54,15 +54,15 @@ testsuite7 = test  [
 
 testsuite8 = test  [
     "Caso 1: No hay publicaciones con algún 'me gusta' en común" ~: (lesGustanLasMismasPublicaciones redC usuario3 usuario4) ~?= False,
-    "Caso 2: Hay publicaciones con algún 'me gusta' en común" ~: (lesGustanLasMismasPublicaciones redG usuario2 usuario4) ~?= False,
+    "Caso 2: No todas las publicaciones tienen 'me gusta' en común" ~: (lesGustanLasMismasPublicaciones redG usuario2 usuario4) ~?= False,
     "Caso 3: A ningún usuario le gustó al menos una publicación" ~: (lesGustanLasMismasPublicaciones redG usuario10 usuario11) ~?= True,
-    "Caso 4: A los dos usuarios les gustaron las mismas publicaciones" ~: (lesGustanLasMismasPublicaciones redF usuario1 usuario5) ~?= True
+    "Caso 4: A los dos usuarios les gustaron exactamente las mismas publicaciones" ~: (lesGustanLasMismasPublicaciones redF usuario1 usuario5) ~?= True
  ]
 
 testsuite9 = test [
     "Caso 1: El usuario no tiene publicaciones" ~: (tieneUnSeguidorFiel redD usuario4) ~?= False,
     "Caso 2: El usuario tiene publicaciones sin 'me gusta'" ~: (tieneUnSeguidorFiel redF usuario6) ~?= False,
-    "Caso 3: El usuario tiene distintas publicaciones con 'me gusta' de diferentes usuarios" ~: (tieneUnSeguidorFiel redG usuario1) ~?= False,
+    "Caso 3: El usuario no tiene 'me gusta' del mismo usuario en todas sus publicaciones" ~: (tieneUnSeguidorFiel redG usuario1) ~?= False,
     "Caso 4: El usuario tiene 'me gusta' del mismo usuario en todas sus publicaciones" ~: (tieneUnSeguidorFiel redG usuario2) ~?= True
  ]
 
