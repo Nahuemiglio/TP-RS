@@ -10,7 +10,7 @@ todosLosTest = test [testsuite1, testsuite2, testsuite3, testsuite4, testsuite5,
 testsuite1 = test [
     "Caso 1: Red social vacía (sin usuarios)" ~: (nombresDeUsuarios redA) ~?= [],
     "Caso 2: Red social con un solo usuario" ~: (nombresDeUsuarios redB) ~?= ["Juan"],
-    "Caso 3: Red social con más de un usuario y un nombre repetido" ~: (nombresDeUsuarios redC) ~?= ["Juan", "Natalia", "Pedro", "Matias", "Carlos"],
+    "Caso 3: Red social con más de un usuario y un nombre repetido" ~: (nombresDeUsuarios redC) ~?= ["Juan", "Natalia", "Pedro", "Mariela", "Matias", "Carlos"],
     "Caso 4: Red social con más de un usuario y ningún nombre repetido" ~: (nombresDeUsuarios redD) ~?= ["Juan","Natalia", "Pedro", "Mariela", "Carlos", "Ernesto"]
  ]
 
@@ -35,8 +35,8 @@ testsuite4 = test [
  ]
 
 testsuite5 = test [
-    "Caso 1: Hay un usuario con menos de 10 amigos" ~: (estaRobertoCarlos redD) ~?= False,
-    "Caso 2: Hay un usuario con 10 amigos" ~: (estaRobertoCarlos redF) ~?= False,
+    "Caso 1: Todos los usuarios tienen menos de 10 amigos" ~: (estaRobertoCarlos redD) ~?= False,
+    "Caso 2: Todos los usuarios tienen 10 amigos o menos" ~: (estaRobertoCarlos redF) ~?= False,
     "Caso 3: Hay un usuario con más de 10 amigos" ~: (estaRobertoCarlos redG) ~?= True
  ]
 
@@ -53,7 +53,7 @@ testsuite7 = test  [
  ]
 
 testsuite8 = test  [
-    "Caso 1: A los usuarios les gustaron publicaciones diferentes" ~: (lesGustanLasMismasPublicaciones redC usuario1 usuario3) ~?= False,
+    "Caso 1: No hay publicaciones con algún 'me gusta' en común" ~: (lesGustanLasMismasPublicaciones redC usuario3 usuario4) ~?= False,
     "Caso 2: Hay publicaciones con algún 'me gusta' en común" ~: (lesGustanLasMismasPublicaciones redG usuario2 usuario4) ~?= False,
     "Caso 3: A ningún usuario le gustó al menos una publicación" ~: (lesGustanLasMismasPublicaciones redG usuario10 usuario11) ~?= True,
     "Caso 4: A los dos usuarios les gustaron las mismas publicaciones" ~: (lesGustanLasMismasPublicaciones redF usuario1 usuario5) ~?= True
@@ -62,7 +62,7 @@ testsuite8 = test  [
 testsuite9 = test [
     "Caso 1: El usuario no tiene publicaciones" ~: (tieneUnSeguidorFiel redD usuario4) ~?= False,
     "Caso 2: El usuario tiene publicaciones sin 'me gusta'" ~: (tieneUnSeguidorFiel redF usuario6) ~?= False,
-    "Caso 3: El usuario tiene distintas publicaciones con 'me gusta' de diferentes usuarios" ~: (tieneUnSeguidorFiel redG usuario6) ~?= False,
+    "Caso 3: El usuario tiene distintas publicaciones con 'me gusta' de diferentes usuarios" ~: (tieneUnSeguidorFiel redG usuario1) ~?= False,
     "Caso 4: El usuario tiene 'me gusta' del mismo usuario en todas sus publicaciones" ~: (tieneUnSeguidorFiel redG usuario2) ~?= True
  ]
 
@@ -72,6 +72,10 @@ testsuite10 = test [
     "Caso 3: Hay más de una relación en la red y ambos usuarios están conectados de manera indirecta" ~: (existeSecuenciaDeAmigos redH usuario4 usuario12) ~?= True,
     "Caso 4: Hay al menos dos usuarios en la red pero no existe ninguna relación" ~: (existeSecuenciaDeAmigos redI usuario6 usuario10) ~?= False
  ]
+
+
+
+
 
 -- VARIABLES DE TEST --
 
@@ -153,7 +157,7 @@ publicacionesB = [publicacion1_1]
 redB = (usuariosB, relacionesB, publicacionesB)
 
 
-usuariosC = [usuario1, usuario2, usuario3, usuario6, usuario7]
+usuariosC = [usuario1, usuario2, usuario3, usuario4, usuario5, usuario6, usuario7]
 relacionesC = [relacion1_2, relacion3_6, relacion1_3, relacion1_7]
 publicacionesC = [publicacion3_1, publicacion3_2, publicacion1_1, publicacion1_2]
 redC = (usuariosC, relacionesC, publicacionesC)
@@ -179,7 +183,7 @@ redF = (usuariosF, relacionesF, publicacionesF)
 
 usuariosG = [usuario1, usuario2, usuario3, usuario4, usuario5, usuario6, usuario7, usuario8, usuario9, usuario10, usuario11, usuario12]
 relacionesG = [relacion12_1, relacion12_2, relacion12_3, relacion12_4, relacion12_5, relacion12_6, relacion12_7, relacion12_8, relacion12_9, relacion12_10, relacion12_11]
-publicacionesG = [publicacion1_1, publicacion1_2, publicacion2_1, publicacion2_2, publicacion2_3, publicacion3_1, publicacion3_3, publicacion4_1, publicacion4_2, publicacion6_1, publicacion6_2]
+publicacionesG = [publicacion1_1, publicacion1_2, publicacion2_1, publicacion2_2, publicacion2_3, publicacion3_1, publicacion4_2, publicacion6_1]
 redG = (usuariosG, relacionesG, publicacionesG)
 
 

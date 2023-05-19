@@ -28,7 +28,7 @@ relaciones (_, rs, _) = rs
 publicaciones :: RedSocial -> [Publicacion]
 publicaciones (_, _, ps) = ps
 
--- Devuelve el n ́umero de identificaci ́on de un usuario.
+-- Devuelve el n ́umero de identificación de un usuario.
 idDeUsuario :: Usuario -> Integer
 idDeUsuario (id, _) = id 
 
@@ -36,11 +36,11 @@ idDeUsuario (id, _) = id
 nombreDeUsuario :: Usuario -> String
 nombreDeUsuario (_, nombre) = nombre 
 
--- Devuelve el usuario de una publicaci on.
+-- Devuelve el usuario de una publicación.
 usuarioDePublicacion :: Publicacion -> Usuario
 usuarioDePublicacion (u, _, _) = u
 
--- Devuelve el conjunto de usuarios que le dieron me gusta a una publicaci on.
+-- Devuelve el conjunto de usuarios que le dieron me gusta a una publicación.
 likesDePublicacion :: Publicacion -> [Usuario]
 likesDePublicacion (_, _, us) = us
 
@@ -52,7 +52,7 @@ likesDePublicacion (_, _, us) = us
 nombresDeUsuarios :: RedSocial -> [String]
 nombresDeUsuarios red = proyectarNombres (usuarios red)
 
--- Dada una lista de usuarios, evuelve una lista sus nombres sin repeticiones.
+-- Dada una lista de usuarios, devuelve una lista sus nombres sin repeticiones.
 proyectarNombres :: [Usuario] -> [String]
 proyectarNombres us = eliminarRepetidos (listaDeNombres us)
 
@@ -101,7 +101,7 @@ amigosDeEnListaDeRelaciones rels u | u1 == u = u2 : amigosDeEnListaDeRelaciones 
 
 -- Dada una red y un usuario, devuelve la longitud de la lista de amigos del usuario en esa red.
 cantidadDeAmigos :: RedSocial -> Usuario -> Int
-cantidadDeAmigos red u = fromInteger(longitud (amigosDe red u))
+cantidadDeAmigos red u = fromInteger(longitud(amigosDe red u))
 
 --------------------------------------------------- Problema 4
 
@@ -119,7 +119,7 @@ compararCantidadDeAmigos red us | cantidadDeAmigos red u1 <= cantidadDeAmigos re
 
 --------------------------------------------------- Problema 5
 
--- Dada una red, valida si hay un usuario con más de un millón de amigos.
+-- Dada una red, valida si hay un usuario con más de diez de amigos.
 estaRobertoCarlos :: RedSocial -> Bool
 estaRobertoCarlos red = (cantidadDeAmigos red (usuarioConMasAmigos red)) > 10
 
