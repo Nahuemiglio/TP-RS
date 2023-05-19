@@ -70,7 +70,8 @@ testsuite10 = test [
     "Caso 1: Hay una única relación en la red" ~: (existeSecuenciaDeAmigos redE usuario1 usuario4) ~?= True,
     "Caso 2: Hay más de una relación en la red, pero el Usuario A y el Usuario B no están conectados de manera indirecta" ~: (existeSecuenciaDeAmigos redH usuario1 usuario4) ~?= False,
     "Caso 3: Hay más de una relación en la red y ambos usuarios están conectados de manera indirecta" ~: (existeSecuenciaDeAmigos redH usuario4 usuario12) ~?= True,
-    "Caso 4: Hay al menos dos usuarios en la red pero no existe ninguna relación" ~: (existeSecuenciaDeAmigos redI usuario6 usuario10) ~?= False
+    "Caso 4: Hay al menos dos usuarios en la red pero no existe ninguna relación" ~: (existeSecuenciaDeAmigos redI usuario6 usuario10) ~?= False,
+    "Caso 5: Cadena de amigos entre un mismo usuario si el usuario tiene una relación" ~: (existeSecuenciaDeAmigos redJ usuario1 usuario1) ~?= True
  ]
 
 
@@ -197,3 +198,9 @@ usuariosI = [usuario1, usuario2]
 relacionesI = []
 publicacionesI = []
 redI = (usuariosI, relacionesI, publicacionesI)
+
+
+usuariosJ = [usuario1, usuario2]
+relacionesJ = [relacion1_2]
+publicacionesJ = []
+redJ = (usuariosJ, relacionesJ, publicacionesJ)
