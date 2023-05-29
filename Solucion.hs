@@ -171,7 +171,7 @@ algunoLeDioLikeATodasPublicaciones red pubs us = ((usuarioDePublicacion(head(pub
 -- Definimos grupo como una lista de usuarios donde es posible obtener una cadenaDeAmigos entre dos usuarios cualesquiera de ese grupo, formada dicha cadena con usuarios de esa lista.
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
 existeSecuenciaDeAmigos red u1 u2 = pertenecenAlMismoGrupo grupos u1 u2 
-                                    where grupos = agrupar [[]] (relaciones red)
+                                    where grupos = agrupar (relaciones red)
 
 -- Dada una lista de grupos y dos usuarios (u1 y u2), valida si ambos usuarios pertenecen al mismo grupo.
 pertenecenAlMismoGrupo :: [[Usuario]] -> Usuario -> Usuario -> Bool
@@ -180,16 +180,15 @@ pertenecenAlMismoGrupo grupos u1 u2 = ((pertenece u1 grupo) && (pertenece u2 gru
                                       where grupo = head(grupos)
                                             gruposres = tail(grupos)
 
--- Dada una lista de grupos y una lista de relaciones, añade a todo usuario al grupo en el cual se relacione con alguno de sus miembros.
-agrupar :: [[Usuario]] -> [Relacion] -> [[Usuario]]
-agrupar _ [] = []
-agrupar grupos rels = agregarAlGrupo (agrupar grupos relsres) rel 
+-- Dada una lista de relaciones, añade a todo usuario de cada relación al grupo en el cual se relacione con alguno de sus miembros.
+agrupar :: [Relacion] -> [[Usuario]]
+agrupar [] = []
+agrupar rels = agregarAlGrupo (agrupar relsres) rel 
                       where rel = head(rels)
                             relsres = tail(rels)
 
 -- Dada una lista de grupos y una relación, agrega alguno de los usuarios de la relación a un grupo si ahí está el otro usuario de la relación, si no crea un nuevo grupo con ambos usuarios de la relación.
 agregarAlGrupo :: [[Usuario]] -> Relacion -> [[Usuario]]
-agregarAlGrupo [[]] (u1, u2) = [[u1, u2]]
 agregarAlGrupo [] (u1, u2) = [[u1, u2]]
 agregarAlGrupo grupos rel | pertenece u1 grupo = (u2:grupo) : gruposres
                           | pertenece u2 grupo = (u1:grupo) : gruposres
