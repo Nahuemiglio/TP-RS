@@ -161,7 +161,7 @@ tieneUnSeguidorFiel red u = algunoLeDioLikeATodasPublicaciones red (publicacione
 algunoLeDioLikeATodasPublicaciones :: RedSocial -> [Publicacion] -> [Usuario] -> Bool
 algunoLeDioLikeATodasPublicaciones _ _ [] = False
 algunoLeDioLikeATodasPublicaciones _ [] _ = False
-algunoLeDioLikeATodasPublicaciones red pubs us = (todoElemPertenece pubs (publicacionesQueLeGustanA red u)) || (algunoLeDioLikeATodasPublicaciones red pubs usres)
+algunoLeDioLikeATodasPublicaciones red pubs us = ((usuarioDePublicacion(head(pubs)) /= u) && (todoElemPertenece pubs (publicacionesQueLeGustanA red u))) || (algunoLeDioLikeATodasPublicaciones red pubs usres)
                                                  where u = head(us)
                                                        usres = tail(us)
 
