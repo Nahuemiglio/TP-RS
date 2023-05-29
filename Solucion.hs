@@ -54,33 +54,17 @@ nombresDeUsuarios red = proyectarNombres (usuarios red)
 
 -- Dada una lista de usuarios, devuelve una lista sus nombres sin repeticiones.
 proyectarNombres :: [Usuario] -> [String]
-proyectarNombres us = eliminarRepetidos (listaDeNombres us)
+proyectarNombres [] = []
+proyectarNombres us = agregarSinRepetidos nu (proyectarNombres usres)
+                      where nu = nombreDeUsuario (head(us))
+                            usres = tail(us)
 
--- Dada una lista de usuarios, devuelve una lista con sus nombres.
-listaDeNombres :: [Usuario] -> [String]
-listaDeNombres [] = []
-listaDeNombres us = un : listaDeNombres ust
-                    where un = nombreDeUsuario (head(us))
-                          ust = tail(us)
-
--- Dada una lista, devuelve la lista sin repetición de elementos.
-eliminarRepetidos :: (Eq t) => [t] -> [t]
-eliminarRepetidos [] = []
-eliminarRepetidos (x:xs) | pertenece x xs = x : (eliminarRepetidos (quitarTodos x xs))
-                         | otherwise = x : (eliminarRepetidos xs)
-
--- Dada una lista de elementos y un elemento, evuelve una lista con ninguna aparición de ese elemento.
-quitarTodos :: (Eq t) => t -> [t] -> [t]
-quitarTodos e [] = []
-quitarTodos e (x:xs) | pertenece e (x:xs) = quitarTodos e (quitar e (x:xs))
-                     | otherwise = (x:xs)
-
--- Dada una lista de elementos y un elemento, devuelve la lista sin la primera aparición de ese elemento.
-quitar :: (Eq t) => t -> [t] -> [t]
-quitar e [] = []
-quitar e (x:xs) | e == x = xs
-                | pertenece e xs = x:(quitar e xs)
-                | otherwise = (x:xs)
+-- Dado un string 'nu' y una lista de strings 'nus', agrega el string 'nu' a la lista de strings 'nus' si 'nu' no pertenecía a 'nus'.
+-- En este caso 'nu' será un nombre de usuario y 'nus' será una lista de nombres de usuarios, por lo que en este caso se agregará el nombre de usuario a la lista de nombres de usuarios si el nombre de usuario no pertenecía a la lista.
+agregarSinRepetidos :: String -> [String] -> [String]
+agregarSinRepetidos nu [] = [nu]
+agregarSinRepetidos nu nus | pertenece nu nus = nus
+                           | otherwise = nu : nus 
 
 --------------------------------------------------- Problema 2
 
@@ -116,6 +100,13 @@ compararCantidadDeAmigos red us | cantidadDeAmigos red u1 <= cantidadDeAmigos re
                                 | otherwise = compararCantidadDeAmigos red (quitar u2 us)
                                   where u1 = head(us)
                                         u2 = head(tail(us))
+
+-- Dada una lista de elementos y un elemento, devuelve la lista sin la primera aparición de ese elemento.
+quitar :: (Eq t) => t -> [t] -> [t]
+quitar e [] = []
+quitar e (x:xs) | e == x = xs
+                | pertenece e xs = x:(quitar e xs)
+                | otherwise = (x:xs)
 
 --------------------------------------------------- Problema 5
 

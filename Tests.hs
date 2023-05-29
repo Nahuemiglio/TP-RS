@@ -10,7 +10,7 @@ todosLosTest = test [testsuite1, testsuite2, testsuite3, testsuite4, testsuite5,
 testsuite1 = test [
     "Caso 1: Red social vacía (sin usuarios)" ~: (nombresDeUsuarios redA) ~?= [],
     "Caso 2: Red social con un solo usuario" ~: (nombresDeUsuarios redB) ~?= ["Juan"],
-    "Caso 3: Red social con más de un usuario y un nombre repetido" ~: (nombresDeUsuarios redC) ~?= ["Juan", "Natalia", "Pedro", "Mariela", "Matias", "Carlos"],
+    "Caso 3: Red social con más de un usuario y un nombre repetido" ~: (nombresDeUsuarios redC) ~?= ["Juan","Pedro","Mariela","Natalia","Matias","Carlos"],
     "Caso 4: Red social con más de un usuario y ningún nombre repetido" ~: (nombresDeUsuarios redD) ~?= ["Juan","Natalia", "Pedro", "Mariela", "Carlos", "Ernesto"]
  ]
 
