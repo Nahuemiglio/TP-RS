@@ -81,6 +81,14 @@ amigosDeEnListaDeRelaciones rels u | u1 == u = u2 : amigosDeEnListaDeRelaciones 
                                      where u1 = fst(head(rels))
                                            u2 = snd(head(rels))
 
+{-
+-- Dada una lista de relaciones y un usuario, devuelve una lista con todos los usuarios con los que se relaciones el usuario.
+amigosDeEnListaDeRelaciones :: [Relacion] -> Usuario -> [Usuario]
+amigosDeEnListaDeRelaciones [] u = []
+amigosDeEnListaDeRelaciones rels (fst(head(rels))) = snd(head(rels)) : amigosDeEnListaDeRelaciones (tail(rels)) (fst(head(rels)))
+amigosDeEnListaDeRelaciones rels (snd(head(rels))) = fst(head(rels)) : amigosDeEnListaDeRelaciones (tail(rels)) (snd(head(rels)))
+amigosDeEnListaDeRelaciones rels u = amigosDeEnListaDeRelaciones (tail(rels)) u
+-}
 --------------------------------------------------- Problema 3
 
 -- Dada una red y un usuario, devuelve la longitud de la lista de amigos del usuario en esa red.
@@ -97,16 +105,9 @@ usuarioConMasAmigos red = compararCantidadDeAmigos red (usuarios red)
 compararCantidadDeAmigos :: RedSocial -> [Usuario] -> Usuario
 compararCantidadDeAmigos red (x:[]) = x
 compararCantidadDeAmigos red us | cantidadDeAmigos red u1 <= cantidadDeAmigos red u2 = compararCantidadDeAmigos red (tail(us))
-                                | otherwise = compararCantidadDeAmigos red (quitar u2 us)
+                                | otherwise = compararCantidadDeAmigos red (u1:tail(tail(us)))
                                   where u1 = head(us)
                                         u2 = head(tail(us))
-
--- Dada una lista de elementos y un elemento, devuelve la lista sin la primera aparición de ese elemento.
-quitar :: (Eq t) => t -> [t] -> [t]
-quitar e [] = []
-quitar e (x:xs) | e == x = xs
-                | pertenece e xs = x:(quitar e xs)
-                | otherwise = (x:xs)
 
 --------------------------------------------------- Problema 5
 
